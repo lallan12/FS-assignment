@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Wallet {
+  id           String        @id @default(cuid())
+  address      String        @unique
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  hash        String   @unique
+  fromAddress String
+  toAddress   String
+  amount      String // Store as string to handle large numbers
+  blockNumber BigInt
+  gasUsed     BigInt?
+  gasPrice    BigInt?
+  timestamp   DateTime
+  status      String // "success" or "failed"
+  walletId    String?
+  wallet      Wallet?  @relation(fields: [walletId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([fromAddress])
+  @@index([toAddress])
+  @@index([timestamp])
+}

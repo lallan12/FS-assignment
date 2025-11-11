@@ -1,0 +1,13 @@
+{
+  "name": "@crypto-wallet-tracker/config",
+  "version": "1.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "lint": "echo 'No linting configured'",
+    "build": "echo 'No build step'",
+    "dev": "echo 'No dev step'",
+    "clean": "echo 'No clean step'"
+  }
+}
+
